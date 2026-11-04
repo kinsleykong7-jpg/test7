@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kinsley's Personal Space</title>
+
+<!-- 引入复古打字机字体 Courier Prime -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+:root {
+  --black: #111;
+  --white: #fff;
+  --gray: #666;
+  --typewriter: 'Courier Prime', Courier, monospace;
+  --header-font: "Bodoni 72", Didot, "Times New Roman", serif;
+}
+
+*{box-sizing:border-box}
+html,body{margin:0;padding:0;min-height:100%;background:#fff;color:var(--black)}
+
+body {
+  font-family: var(--typewriter);
+  overflow-x: hidden;
+  text-shadow: 0.3px 0.3px 0.6px rgba(0,0,0,0.3);
+}
+
+#snow {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.flake {
+  position: absolute;
+  top: -30px;
+  left: var(--x);
+  opacity: var(--o);
+  color: var(--c);
+  font-size: var(--s);
+  animation: fall var(--t) linear var(--d) infinite;
+  user-select: none;
+}
+.flake.ball {
+  width: var(--s);
+  height: var(--s);
+  border-radius: 50%;
+  background: var(--c);
+}
+
+@keyframes fall {
+  to {
+    transform: translate3d(var(--drift), 108vh, 0) rotate(360deg);
+  }
+}
+
+main {
+  position: relative;
+  z-index: 1;
+  max-width: 850px;
+  min-height: 100vh;
+  margin: auto;
+  padding: 30px 20px 36px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+header {
+  font-family: var(--header-font);
+  font-size: 13px;
+  letter-spacing: .2em;
+  text-align: center;
+  padding: 10px 0 16px;
+  color: #222;
+}
+
+.scene {
+  position: relative;
+  width: 100%;
+  height: 520px;
+  overflow: hidden;
+}
+
+/* 马吉拉解构风高级雪人容器 */
+.margiela-snowman {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 260px;
+  height: 350px;
+  transform: translate(-50%, -50%);
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-head, .m-body {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 1.5px dashed #111;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.95);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.m-head {
+  top: 10px;
+  width: 110px;
+  height: 110px;
+  border-style: solid;
+}
+
+.m-body {
+  top: 115px;
+  width: 200px;
+  height: 200px;
+}
+
+.m-hat {
+  position: absolute;
+  top: -18px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 40px;
+  height: 30px;
+  border: 1.5px solid #111;
+  background: #fff;
+  z-index: 4;
+}
+.m-hat::after {
+  content: "";
+  position: absolute;
+  bottom: -3px;
+  left: -8px;
+  width: 56px;
+  height: 3px;
+  background: #111;
+}
+
+.timer-box {
+  text-align: center;
+  z-index: 5;
+}
+
+.value {
+  display: block;
+  font-size: clamp(20px, 4vw, 28px);
+  font-weight: 700;
+  letter-spacing: -.03em;
+  color: #111;
+}
+
+.label {
+  display: block;
+  margin-top: 4px;
+  font-size: 8.5px;
+  letter-spacing: .3em;
+  text-transform: uppercase;
+  color: var(--gray);
+}
+
+.wordfield {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  pointer-events: none;
+}
+
+.word {
+  position: absolute;
+  right: -25%;
+  top: var(--y);
+  font-size: var(--size);
+  white-space: nowrap;
+  letter-spacing: -.05em;
+  opacity: 0;
+  animation: pourDown var(--duration) ease-in-out var(--delay) infinite;
+  user-select: none;
+}
+
+@keyframes pourDown {
+  0% {
+    transform: translate(0, -12vh) rotate(var(--rot));
+    opacity: 0;
+  }
+  15% { opacity: 0.85; }
+  80% { opacity: 0.75; }
+  100% {
+    transform: translate(-130vw, 88vh) rotate(calc(var(--rot) - 25deg));
+    opacity: 0;
+  }
+}
+
+.player {
+  z-index: 4;
+  width: min(540px, 100%);
