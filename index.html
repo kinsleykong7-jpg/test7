@@ -1,208 +1,465 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="zh-CN">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Kinsley's Personal Space</title>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no">
+<title>Kinsley's Personal Space — Cinematic Drum Space</title>
 
-<!-- 引入复古打字机字体 Courier Prime -->
+<!-- 引入电影海报级衬线体与打字机字体 -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Courier+Prime:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,400;0,6..96,700;1,6..96,700&family=Courier+Prime:wght@700&family=Syne:wght@700;800&display=swap" rel="stylesheet">
 
 <style>
 :root {
-  --black: #111;
-  --white: #fff;
-  --gray: #666;
-  --typewriter: 'Courier Prime', Courier, monospace;
-  --header-font: "Bodoni 72", Didot, "Times New Roman", serif;
+  --bg: #0a0b10;
+  --text: #f0f0f5;
+  --gold: #d4af37;
+  --blue: #4a90e2;
+  --bodoni: 'Bodoni Moda', serif;
+  --typewriter: 'Courier Prime', monospace;
+  --sans: 'Syne', sans-serif;
 }
 
-*{box-sizing:border-box}
-html,body{margin:0;padding:0;min-height:100%;background:#fff;color:var(--black)}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent;}
+html,body{margin:0;width:100%;height:100%;background:var(--bg);color:var(--text);font-family:var(--bodoni);overflow:hidden;user-select:none;}
 
-body {
-  font-family: var(--typewriter);
-  overflow-x: hidden;
-  text-shadow: 0.3px 0.3px 0.6px rgba(0,0,0,0.3);
-}
-
-#snow {
+/* 胶片颗粒质感遮罩 */
+body::after {
+  content: "";
   position: fixed;
   inset: 0;
-  overflow: hidden;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.05'/%3E%3C/svg%3E");
   pointer-events: none;
-  z-index: 0;
+  z-index: 99;
 }
 
-.flake {
-  position: absolute;
-  top: -30px;
-  left: var(--x);
-  opacity: var(--o);
-  color: var(--c);
-  font-size: var(--s);
-  animation: fall var(--t) linear var(--d) infinite;
-  user-select: none;
-}
-.flake.ball {
-  width: var(--s);
-  height: var(--s);
-  border-radius: 50%;
-  background: var(--c);
-}
-
-@keyframes fall {
-  to {
-    transform: translate3d(var(--drift), 108vh, 0) rotate(360deg);
-  }
-}
-
-main {
-  position: relative;
-  z-index: 1;
-  max-width: 850px;
-  min-height: 100vh;
-  margin: auto;
-  padding: 30px 20px 36px;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-}
-
+/* 电影海报级顶栏 */
 header {
-  font-family: var(--header-font);
-  font-size: 13px;
-  letter-spacing: .2em;
-  text-align: center;
-  padding: 10px 0 16px;
-  color: #222;
-}
-
-.scene {
-  position: relative;
+  position: absolute;
+  top: 24px;
+  left: 0;
   width: 100%;
-  height: 520px;
-  overflow: hidden;
-}
-
-/* 马吉拉解构风高级雪人容器 */
-.margiela-snowman {
-  position: absolute;
-  left: 50%;
-  top: 50%;
-  width: 260px;
-  height: 350px;
-  transform: translate(-50%, -50%);
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.m-head, .m-body {
-  position: absolute;
-  left: 50%;
-  transform: translateX(-50%);
-  border: 1.5px dashed #111;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.95);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-}
-
-.m-head {
-  top: 10px;
-  width: 110px;
-  height: 110px;
-  border-style: solid;
-}
-
-.m-body {
-  top: 115px;
-  width: 200px;
-  height: 200px;
-}
-
-.m-hat {
-  position: absolute;
-  top: -18px;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 40px;
-  height: 30px;
-  border: 1.5px solid #111;
-  background: #fff;
-  z-index: 4;
-}
-.m-hat::after {
-  content: "";
-  position: absolute;
-  bottom: -3px;
-  left: -8px;
-  width: 56px;
-  height: 3px;
-  background: #111;
-}
-
-.timer-box {
   text-align: center;
-  z-index: 5;
-}
-
-.value {
-  display: block;
-  font-size: clamp(20px, 4vw, 28px);
-  font-weight: 700;
-  letter-spacing: -.03em;
-  color: #111;
-}
-
-.label {
-  display: block;
-  margin-top: 4px;
-  font-size: 8.5px;
-  letter-spacing: .3em;
-  text-transform: uppercase;
-  color: var(--gray);
-}
-
-.wordfield {
-  position: absolute;
-  inset: 0;
-  z-index: 2;
+  z-index: 10;
   pointer-events: none;
 }
 
-.word {
-  position: absolute;
-  right: -25%;
-  top: var(--y);
-  font-size: var(--size);
-  white-space: nowrap;
-  letter-spacing: -.05em;
+.credits {
+  font-family: var(--typewriter);
+  font-size: 9px;
+  letter-spacing: 0.35em;
+  color: #8a8a9e;
+  text-transform: uppercase;
+  margin-bottom: 6px;
+}
+
+.main-title {
+  font-family: var(--bodoni);
+  font-size: clamp(20px, 5.5vw, 32px);
+  font-weight: 700;
+  font-style: italic;
+  letter-spacing: 0.22em;
+  background: linear-gradient(135deg, #fff 30%, #d4af37 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-shadow: 0 0 20px rgba(212,175,55,0.2);
+}
+
+.sub-tag {
+  font-family: var(--typewriter);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  color: var(--gold);
+  margin-top: 4px;
+}
+
+canvas {
+  display: block;
+  width: 100%;
+  height: 100%;
+  cursor: grab;
+}
+canvas:active { cursor: grabbing; }
+
+/* 敲击 SNARE 弹出的 TIME 页面 */
+#timeModal {
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 11, 16, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
-  animation: pourDown var(--duration) ease-in-out var(--delay) infinite;
-  user-select: none;
+  pointer-events: none;
+  transition: opacity 0.5s cubic-bezier(0.19, 1, 0.22, 1);
 }
 
-@keyframes pourDown {
-  0% {
-    transform: translate(0, -12vh) rotate(var(--rot));
-    opacity: 0;
-  }
-  15% { opacity: 0.85; }
-  80% { opacity: 0.75; }
-  100% {
-    transform: translate(-130vw, 88vh) rotate(calc(var(--rot) - 25deg));
-    opacity: 0;
-  }
+#timeModal.active {
+  opacity: 1;
+  pointer-events: auto;
 }
 
-.player {
-  z-index: 4;
-  width: min(540px, 100%);
+.time-box {
+  text-align: center;
+  border: 1px solid rgba(212,175,55,0.3);
+  padding: 40px 30px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.02);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.8), inset 0 0 30px rgba(212,175,55,0.05);
+  max-width: 90%;
+  width: 480px;
+}
+
+.time-title {
+  font-family: var(--typewriter);
+  font-size: 11px;
+  letter-spacing: 0.3em;
+  color: var(--gold);
+  text-transform: uppercase;
+  margin-bottom: 25px;
+}
+
+.timer-block {
+  margin: 20px 0;
+}
+
+.timer-val {
+  font-family: var(--bodoni);
+  font-size: clamp(26px, 6vw, 38px);
+  font-weight: 700;
+  letter-spacing: 0.05em;
+  color: #fff;
+}
+
+.timer-val.lived {
+  font-size: clamp(32px, 7vw, 46px);
+  color: var(--gold);
+}
+
+.timer-lbl {
+  font-family: var(--typewriter);
+  font-size: 10px;
+  letter-spacing: 0.25em;
+  color: #8a8a9e;
+  text-transform: uppercase;
+  margin-top: 4px;
+}
+
+.close-btn {
+  margin-top: 30px;
+  background: none;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  padding: 10px 28px;
+  font-family: var(--typewriter);
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  cursor: pointer;
+  transition: all 0.3s;
+}
+
+.close-btn:hover {
+  background: var(--gold);
+  color: #000;
+}
+
+/* 底部操作引导 */
+.hint {
+  position: absolute;
+  bottom: 20px;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-family: var(--typewriter);
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: #666;
+  pointer-events: none;
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="credits">A KINSLEY KONG PRESENTATION &bull; CINEMATIC SPACE</div>
+  <div class="main-title">KINSLEY'S PERSONAL SPACE</div>
+  <div class="sub-tag">NO. 22 &bull; INTERACTIVE DRUM SET</div>
+</header>
+
+<canvas id="canvas"></canvas>
+
+<div class="hint">DRAG DRUMSTICK TO HIT PADS &bull; HIT SNARE FOR TIME &bull; HIT CRASH TO PLAY MUSIC</div>
+
+<!-- TIME 倒计时弹窗页面 -->
+<div id="timeModal">
+  <div class="time-box">
+    <div class="time-title">&mdash; TIME ARCHIVE &mdash;</div>
+    
+    <div class="timer-block">
+      <div class="timer-val" id="birthday">--:--:--</div>
+      <div class="timer-lbl">Next Birthday</div>
+    </div>
+
+    <div style="width: 40px; height: 1px; background: rgba(212,175,55,0.3); margin: 20px auto;"></div>
+
+    <div class="timer-block">
+      <div class="timer-val lived" id="lived">--:--:--</div>
+      <div class="timer-lbl">Hours Lived</div>
+    </div>
+
+    <button class="close-btn" onclick="closeTime()">RETURN TO DRUM</button>
+  </div>
+</div>
+
+<audio id="audioPlayer" src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" preload="auto" loop></audio>
+
+<script>
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const audio = document.getElementById('audioPlayer');
+
+let isPlaying = false;
+let songTitle = "WINTER CHILL &bull; KINSLEY'S CHOICE &bull; ";
+let rotAngle = 0; // 踩镲滚动的文字角度
+
+function resize() {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// 架子鼓各个部件配置 (相对坐标)
+const drums = [
+  { id: 'snare', name: 'SNARE (TIME)', x: 0.38, y: 0.58, r: 60, color: '#e63946', hit: 0 },
+  { id: 'tom', name: 'TOM', x: 0.50, y: 0.45, r: 50, color: '#457b9d', hit: 0 },
+  { id: 'crash', name: 'CRASH (PLAY/PAUSE)', x: 0.68, y: 0.42, r: 75, color: '#f4a261', hit: 0 }, // 吊镲片 (播放键)
+  { id: 'hihat', name: 'HI-HAT', x: 0.26, y: 0.50, r: 65, color: '#e9c46a', hit: 0 }, // 踩镲片 (歌名滚动)
+  { id: 'kick', name: 'KICK', x: 0.50, y: 0.70, r: 90, color: '#2a9d8f', hit: 0 }
+];
+
+// 拖拽鼓棒
+let stick = { x: window.innerWidth / 2, y: window.innerHeight * 0.75, targetX: window.innerWidth / 2, targetY: window.innerHeight * 0.75 };
+
+function updateStickPos(e) {
+  const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+  const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+  stick.targetX = clientX;
+  stick.targetY = clientY;
+}
+
+window.addEventListener('mousemove', updateStickPos);
+window.addEventListener('touchmove', updateStickPos, {passive: false});
+
+// Web Audio API 敲击音效合成器
+const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+function playHitAudio(id) {
+  if (audioCtx.state === 'suspended') audioCtx.resume();
+  const osc = audioCtx.createOscillator();
+  const gain = audioCtx.createGain();
+  osc.connect(gain);
+  gain.connect(audioCtx.destination);
+
+  if (id === 'kick') {
+    osc.frequency.setValueAtTime(130, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(30, audioCtx.currentTime + 0.15);
+    gain.gain.setValueAtTime(1, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.15);
+  } else if (id === 'crash' || id === 'hihat') {
+    osc.type = 'square';
+    osc.frequency.setValueAtTime(800, audioCtx.currentTime);
+    gain.gain.setValueAtTime(0.3, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.2);
+  } else {
+    osc.type = 'triangle';
+    osc.frequency.setValueAtTime(300, audioCtx.currentTime);
+    osc.frequency.exponentialRampToValueAtTime(60, audioCtx.currentTime + 0.12);
+    gain.gain.setValueAtTime(0.6, audioCtx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.12);
+  }
+  osc.start();
+  osc.stop(audioCtx.currentTime + 0.2);
+}
+
+// 敲击碰撞检测
+function checkCollision() {
+  const cx = canvas.width;
+  const cy = canvas.height;
+
+  drums.forEach(d => {
+    const dx = stick.x - d.x * cx;
+    const dy = stick.y - d.y * cy;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    if (dist < d.r + 15 && d.hit === 0) {
+      d.hit = 15; // 触发震动光效
+      playHitAudio(d.id);
+
+      // 1. 敲击 SNARE：打开 TIME 倒计时页面
+      if (d.id === 'snare') {
+        document.getElementById('timeModal').classList.add('active');
+      }
+
+      // 2. 敲击 CRASH (吊镲)：控制音乐播放/暂停
+      if (d.id === 'crash') {
+        if (audio.paused) {
+          audio.play();
+          isPlaying = true;
+        } else {
+          audio.pause();
+          isPlaying = false;
+        }
+      }
+    }
+  });
+}
+
+function closeTime() {
+  document.getElementById('timeModal').classList.remove('active');
+}
+
+// 主渲染循环
+function render() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  const cx = canvas.width;
+  const cy = canvas.height;
+
+  // 平滑跟随鼓棒
+  stick.x += (stick.targetX - stick.x) * 0.35;
+  stick.y += (stick.targetY - stick.y) * 0.35;
+
+  checkCollision();
+
+  // 1. 绘制架子鼓部件
+  drums.forEach(d => {
+    const x = d.x * cx;
+    const y = d.y * cy;
+
+    ctx.save();
+    ctx.translate(x, y);
+
+    // 敲击震动微调
+    if (d.hit > 0) {
+      ctx.translate((Math.random() - 0.5) * 4, (Math.random() - 0.5) * 4);
+      d.hit--;
+    }
+
+    // 外发光
+    ctx.shadowBlur = d.hit > 0 ? 30 : 15;
+    ctx.shadowColor = d.color;
+
+    // 鼓/镲盘绘制
+    ctx.beginPath();
+    ctx.arc(0, 0, d.r, 0, Math.PI * 2);
+    ctx.fillStyle = d.hit > 0 ? d.color : 'rgba(20, 22, 32, 0.85)';
+    ctx.fill();
+    ctx.lineWidth = 3;
+    ctx.strokeStyle = d.color;
+    ctx.stroke();
+
+    ctx.shadowBlur = 0; // 清除发光
+
+    // 如果是 吊镲 (CRASH)：绘制 Play/Pause 图标
+    if (d.id === 'crash') {
+      ctx.fillStyle = '#fff';
+      if (isPlaying) {
+        // Pause 状态图标
+        ctx.fillRect(-8, -12, 5, 24);
+        ctx.fillRect(3, -12, 5, 24);
+      } else {
+        // Play 状态图标
+        ctx.beginPath();
+        ctx.moveTo(-6, -14);
+        ctx.lineTo(12, 0);
+        ctx.lineTo(-6, 14);
+        ctx.closePath();
+        ctx.fill();
+      }
+    }
+
+    // 如果是 踩镲 (HI-HAT)：沿着边缘流动滚动歌名字体
+    if (d.id === 'hihat') {
+      if (isPlaying) rotAngle += 0.015; // 播放时旋转
+      ctx.save();
+      ctx.rotate(rotAngle);
+      ctx.fillStyle = '#d4af37';
+      ctx.font = '700 9px "Courier Prime", monospace';
+      ctx.textAlign = 'center';
+      
+      const chars = (songTitle + songTitle).split('');
+      const step = (Math.PI * 2) / chars.length;
+      chars.forEach((ch, idx) => {
+        ctx.save();
+        ctx.rotate(idx * step);
+        ctx.fillText(ch, 0, -d.r + 12);
+        ctx.restore();
+      });
+      ctx.restore();
+    }
+
+    // 部件文字名称
+    ctx.fillStyle = d.hit > 0 ? '#000' : '#fff';
+    ctx.font = '700 10px "Courier Prime", monospace';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    if (d.id !== 'hihat') ctx.fillText(d.name, 0, 0);
+
+    ctx.restore();
+  });
+
+  // 2. 绘制拖动的艺术鼓棒
+  ctx.save();
+  ctx.translate(stick.x, stick.y);
+  ctx.rotate(-Math.PI / 4);
+
+  // 鼓棒阴影与体感
+  ctx.shadowBlur = 15;
+  ctx.shadowColor = '#d4af37';
+
+  // 鼓棒木质渐变身
+  const grad = ctx.createLinearGradient(0, -80, 0, 60);
+  grad.addColorStop(0, '#d4af37');
+  grad.addColorStop(1, '#554210');
+
+  ctx.fillStyle = grad;
+  ctx.fillRect(-3, -80, 6, 140);
+
+  // 鼓棒头
+  ctx.beginPath();
+  ctx.arc(0, -82, 5, 0, Math.PI * 2);
+  ctx.fillStyle = '#fff';
+  ctx.fill();
+
+  ctx.restore();
+
+  requestAnimationFrame(render);
+}
+
+// 倒计时逻辑
+const birth = new Date(2002, 11, 22, 0, 0, 0);
+const pad = n => String(n).padStart(2, '0');
+
+function tick() {
+  const now = new Date();
+  let sLived = Math.max(0, Math.floor((now - birth) / 1000));
+  const livedEl = document.querySelector('#lived');
+  if(livedEl) livedEl.textContent = `${Math.floor(sLived / 3600)}:${pad(Math.floor((sLived % 3600) / 60))}:${pad(sLived % 60)}`;
+
+  let next = new Date(now.getFullYear(), 11, 22);
+  if (now >= next) next = new Date(now.getFullYear() + 1, 11, 22);
+  let sBirth = Math.max(0, Math.floor((next - now) / 1000));
+  const birthEl = document.querySelector('#birthday');
+  if(birthEl) birthEl.textContent = `${Math.floor(sBirth / 86400) * 24 + Math.floor((sBirth % 86400) / 3600)}:${pad(Math.floor((sBirth % 3600) / 60))}:${pad(sBirth % 60)}`;
+}
+tick();
+setInterval(tick, 1000);
+
+render();
+</script>
+</body>
+</html>
